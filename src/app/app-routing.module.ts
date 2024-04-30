@@ -1,22 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomePageComponent } from './shared/pages/home-page/home-page.component';
-import { AboutPageComponent } from './shared/pages/about-page/about-page.component';
-import { ContactPageComponent } from './shared/pages/contact-page/contact-page.component';
-
 const routes: Routes = [
-  // Root va al home page
-  { path: '', component: HomePageComponent, },
-
   // Lazy loading del módulo de países
   { path: 'countries', loadChildren: () => import('./countries/countries.module').then(m => m.CountriesModule), },
 
-  { path: 'contact', component: ContactPageComponent, },
-  { path: 'about', component: AboutPageComponent, },
-
   // Redirect to home page when route does not exist
-  { path: '**', redirectTo: ''}
+  { path: '**', redirectTo: 'countries'}
 ];
 
 @NgModule({
