@@ -6,7 +6,12 @@ import { AboutPageComponent } from './shared/pages/about-page/about-page.compone
 import { ContactPageComponent } from './shared/pages/contact-page/contact-page.component';
 
 const routes: Routes = [
+  // Root va al home page
   { path: '', component: HomePageComponent, },
+
+  // Lazy loading del módulo de países
+  { path: 'countries', loadChildren: () => import('./countries/countries.module').then(m => m.CountriesModule), },
+
   { path: 'contact', component: ContactPageComponent, },
   { path: 'about', component: AboutPageComponent, },
 
