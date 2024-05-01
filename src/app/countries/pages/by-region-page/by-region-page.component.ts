@@ -3,6 +3,9 @@ import { Component } from '@angular/core';
 import { CountriesService } from '../../services/countries.service';
 import { Country } from '../../interfaces/country';
 
+// una especie de ENUM de valores strings
+type Region = 'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania';
+
 @Component({
   selector: 'countries-by-region-page',
   templateUrl: './by-region-page.component.html',
@@ -10,17 +13,22 @@ import { Country } from '../../interfaces/country';
 })
 export class ByRegionPageComponent {
 
-  public isLoading : boolean = false;
+  public isLoading: boolean = false;
 
-  public countries : Country[] = [];
+  public countries: Country[] = [];
 
-  constructor(private countriesService: CountriesService) {}
+  public regions: Region[] = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
 
-  public searchByRegion(criteria: string): void {
+  public selectedRegion?: Region;
+
+  constructor(private countriesService: CountriesService) { }
+
+  public onRegionSelected(region: Region): void {
+    this.selectedRegion = region;
     this.isLoading = true;
 
-    this.countriesService.searchByRegion(criteria)
-      .subscribe( {
+    this.countriesService.searchByRegion(region)
+      .subscribe({
         next: data => {
           this.countries = data;
           this.isLoading = false;
