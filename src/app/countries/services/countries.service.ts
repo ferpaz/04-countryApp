@@ -24,16 +24,16 @@ export class CountriesService {
       );
   }
 
-  public searchByRegion(criteria: string): Observable<Country[]> {
-    const url = `${this.apiUrl}/region/${criteria}`;
+  public searchByCountry(criteria: string): Observable<Country[]> {
+    const url = `${this.apiUrl}/name/${criteria}`;
     return this.httClient.get<Country[]>(url)
       .pipe(
         catchError(() => of([]))
       );
   }
 
-  public searchByCountry(criteria: string): Observable<Country[]> {
-    const url = `${this.apiUrl}/alpha/${criteria}`;
+  public searchByRegion(criteria: string): Observable<Country[]> {
+    const url = `${this.apiUrl}/region/${criteria}`;
     return this.httClient.get<Country[]>(url)
       .pipe(
         catchError(() => of([]))
