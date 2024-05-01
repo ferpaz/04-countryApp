@@ -1,0 +1,36 @@
+<div *ngIf="countries.length === 0; else table" class="alert alert-warning text-center">
+  No hay paises que mostrar con el criterio de búsqueda especificado
+</div>
+
+<ng-template #table>
+  <div class="table-responsive small">
+    <table class="table table-sm table-striped table-hover">
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th>Nombre</th>
+          <th>Capital</th>
+          <th>Región</th>
+          <th class="text-end">Área (Km²)</th>
+          <th class="text-end">Población (Miles)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let country of countries">
+          <th scope="row">
+            <img [src]="country.flags.svg" [alt]="country.name.common" class="img-fluid img-thumbnail">
+          </th>
+          <td>
+            <a role="button" class="link" [href]="'countries/by/' + country.cca3">
+              {{ country.name.common }}
+            </a>
+          </td>
+          <td>{{ country.capital }}</td>
+          <td>{{ country.subregion }}, {{ country.region }}</td>
+          <td class="text-end">{{ country.area | number }}</td>
+          <td class="text-end">{{ country.population | number }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-template>
