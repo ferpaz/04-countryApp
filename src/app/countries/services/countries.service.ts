@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, of } from 'rxjs';
+import { Observable, catchError, delay, map, of } from 'rxjs';
 
 import { Country } from '../interfaces/country';
 
@@ -30,7 +30,7 @@ export class CountriesService {
     return this.httClient.get<Country[]>(url)
       .pipe(
         map( countries => countries.length > 0 ? countries[0] : null),
-        catchError(() => of(null))
+        catchError(() => of(null)),
       );
   }
 
@@ -44,7 +44,7 @@ export class CountriesService {
     return this.httClient.get<Country[]>(url)
       .pipe(
         map(countries => countries.sort((a, b) => a.name.common.localeCompare(b.name.common))),
-        catchError(() => of([]))
+        catchError(() => of([])),
       );
   }
 }
