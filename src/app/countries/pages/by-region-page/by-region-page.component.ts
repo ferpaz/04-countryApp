@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 
 import { CountriesService } from '../../services/countries.service';
-import { Country } from '../../interfaces/country';
-
-// una especie de ENUM de valores strings
-type Region = 'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania';
+import { Country } from '../../interfaces/country.interface';
 
 @Component({
   selector: 'countries-by-region-page',
