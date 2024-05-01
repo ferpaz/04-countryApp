@@ -12,6 +12,7 @@ import { switchMap } from 'rxjs';
 })
 export class CountryPageComponent implements OnInit {
 
+  public isLoading : boolean = false;
   public country?: Country;
 
   constructor(
@@ -22,6 +23,8 @@ export class CountryPageComponent implements OnInit {
 
   // Método que se ejecuta cuando el componente se inicializa (no se utiliza el constructor)
   ngOnInit(): void {
+    this.isLoading = true;
+
     this.activatedRoute.params
       .pipe(
         // switchMap: obtiene el valor del observale, cancela la suscripción anterior y se suscribe a una nueva
@@ -39,6 +42,7 @@ export class CountryPageComponent implements OnInit {
           }
 
           this.country = data;
+          this.isLoading = false;
         }
       });
   }
