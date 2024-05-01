@@ -25,6 +25,15 @@ export class CountriesService {
     return this.searchBy(criteria, 'region');
   }
 
+  public searchByAlphaCode(code: string): Observable<Country | null> {
+    const url = `${this.apiUrl}/alpha/${code}`;
+    return this.httClient.get<Country[]>(url)
+      .pipe(
+        map( countries => countries.length > 0 ? countries[0] : null),
+        catchError(() => of(null))
+      );
+  }
+
 
   // Retorna un Observable con un array de objetos de tipo Country
   // hasta que no hay algun componente suscrito a este Observable
@@ -34,8 +43,8 @@ export class CountriesService {
     const url = `${this.apiUrl}/${endpoint}/${criteria}`;
     return this.httClient.get<Country[]>(url)
       .pipe(
-        catchError(() => of([])),
-        map(countries => countries.sort((a, b) => a.name.common.localeCompare(b.name.common)))
+        map(countries => countries.sort((a, b) => a.name.common.localeCompare(b.name.common))),
+        catchError(() => of([]))
       );
   }
 }

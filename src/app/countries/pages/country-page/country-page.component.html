@@ -1,1 +1,49 @@
-<p>country-page works!</p>
+<div *ngIf="country; else loading">
+  <div class="row">
+    <div class="col-12">
+      <h2>{{ country.name.common }}</h2>
+      <hr>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <img [src]="country.flags.svg" alt="Flag" class="img-thumbnail img-fluid">
+
+      <hr>
+
+      <p>
+        <strong>En otros idiomas</strong>
+      </p>
+
+      <div class="f-flex flex-wrap">
+        <span class="badge text-bg-secondary m-1" *ngFor="let trans of uniqueTranslations">
+          {{ trans }}
+        </span>
+      </div>
+
+    </div>
+
+    <div class="col-8">
+      <dt>Capital:</dt>
+      <dd>{{ country.capital }}</dd>
+      <dt>Population:</dt>
+      <dd>{{ country.population | number }}</dd>
+      <dt>Area:</dt>
+      <dd>{{ country.area | number }} Km²</dd>
+      <dt>Region:</dt>
+      <dd>{{ country.region }}</dd>
+      <dt>Subregion:</dt>
+      <dd>{{ country.subregion }}</dd>
+      <dt>Timezones:</dt>
+      <dd>{{ country.timezones.join(", ") }}</dd>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #loading>
+  <div class="alert alert-info">
+    <p>Cargando ...</p>
+  </div>
+</ng-template>

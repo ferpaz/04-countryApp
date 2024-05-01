@@ -21,7 +21,7 @@
             <img [src]="country.flags.svg" [alt]="country.name.common" class="img-fluid img-thumbnail">
           </th>
           <td>
-            <a role="button" class="link" [href]="'countries/by/' + country.cca3">
+            <a role="button" class="link" [routerLink]="['/countries/by/', country.cca3]">
               {{ country.name.common }}
             </a>
           </td>
