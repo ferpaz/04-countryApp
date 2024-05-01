@@ -1,12 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { SearchboxComponent } from './components/searchbox/searchbox.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
+    LoadingSpinnerComponent,
     SearchboxComponent,
     SidebarComponent,
   ],
@@ -15,6 +17,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     RouterModule
   ],
   exports: [
+    LoadingSpinnerComponent,
     SearchboxComponent,
     SidebarComponent,
   ]
