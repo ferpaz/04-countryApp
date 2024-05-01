@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, delay, map, of } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 
 import { Country } from '../interfaces/country.interface';
+import { CacheService } from './cache.service';
+import { Region } from '../interfaces/region.type';
 
 @Injectable({
   providedIn: 'root'
@@ -10,19 +12,32 @@ import { Country } from '../interfaces/country.interface';
 export class CountriesService {
   private apiUrl: string = 'https://restcountries.com/v3.1';
 
-  constructor(private httClient: HttpClient) { }
+  constructor(
+    private httClient: HttpClient,
+    private cache: CacheService,
+  ) { }
 
 
   public searchByCapital(criteria: string): Observable<Country[]> {
-    return this.searchBy(criteria, 'capital');
+    return this.searchBy(criteria, 'capital')
+      .pipe(
+        // Tap permite interceptar el resultado del flujo de datos sin modificarlo y antes que llegue al suscriptor
+        tap(countries => this.cache.countriesStore.byCapital = { term: criteria, countries }),
+      );
   }
 
   public searchByCountry(criteria: string): Observable<Country[]> {
-    return this.searchBy(criteria, 'name');
+    return this.searchBy(criteria, 'name')
+      .pipe(
+        tap(countries => this.cache.countriesStore.byCountry = { term: criteria, countries }),
+      );
   }
 
-  public searchByRegion(criteria: string): Observable<Country[]> {
-    return this.searchBy(criteria, 'region');
+  public searchByRegion(criteria: Region): Observable<Country[]> {
+    return this.searchBy(criteria.toString(), 'region')
+      .pipe(
+        tap(countries => this.cache.countriesStore.byRegion = { region: criteria, countries }),
+      );
   }
 
   public searchByAlphaCode(code: string): Observable<Country | null> {
