@@ -23,6 +23,7 @@ export class CountriesService {
       .pipe(
         // Tap permite interceptar el resultado del flujo de datos sin modificarlo y antes que llegue al suscriptor
         tap(countries => this.cache.countriesStore.byCapital = { term: criteria, countries }),
+        tap(() => this.cache.saveToLocalStorage()),
       );
   }
 
@@ -30,6 +31,7 @@ export class CountriesService {
     return this.searchBy(criteria, 'name')
       .pipe(
         tap(countries => this.cache.countriesStore.byCountry = { term: criteria, countries }),
+        tap(() => this.cache.saveToLocalStorage()),
       );
   }
 
@@ -37,6 +39,7 @@ export class CountriesService {
     return this.searchBy(criteria.toString(), 'region')
       .pipe(
         tap(countries => this.cache.countriesStore.byRegion = { region: criteria, countries }),
+        tap(() => this.cache.saveToLocalStorage()),
       );
   }
 
