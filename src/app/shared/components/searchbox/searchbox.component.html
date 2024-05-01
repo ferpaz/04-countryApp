@@ -1,14 +1,13 @@
 
 <div class="input-group shadow-sm">
   <input
-  id="txtSearchValue"
   #txtSearchValue
+  id="txtSearchValue"
   type="search"
   class="form-control"
-  #txtTagInput
   [placeholder]="placeholder || 'Buscar ...'"
   (keyup)="onKeyPress(txtSearchValue.value)"
-  placeholder="Buscar ..."
+  [value]="initialValue"
   >
   <span class="input-group-addon shadow-sm">
     <button type="button" class="btn btn-primary" (click)="searchCriteria(txtSearchValue.value)" title="Buscar">

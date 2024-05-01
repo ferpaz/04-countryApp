@@ -11,6 +11,9 @@ export class SearchboxComponent implements OnInit, OnDestroy {
   @Input()
   public placeholder:string = '';
 
+  @Input()
+  public initialValue:string = '';
+
   @ViewChild('txtSearchValue')
   public searchValue!: ElementRef<HTMLInputElement>;
 
